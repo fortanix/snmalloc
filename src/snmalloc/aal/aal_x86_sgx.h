@@ -5,6 +5,8 @@
 #  include <intrin.h>
 #endif
 
+#  include <immintrin.h>
+
 #if defined(__amd64__) || defined(__x86_64__) || defined(_M_X64) || \
   defined(_M_AMD64)
 #  define SNMALLOC_VA_BITS_64
@@ -64,6 +66,13 @@ namespace snmalloc
     {
       return 0;
     }
+
+    static inline void entropy(long long unsigned int* val)
+    {
+        while (_rdrand64_step(val) != 1);
+    }
+
+
   };
 
   using AAL_Arch = AAL_x86_sgx;

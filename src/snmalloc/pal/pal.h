@@ -19,8 +19,11 @@
 // If simulating OE, then we need the underlying platform
 #if defined(OPEN_ENCLAVE)
 #  include "pal_open_enclave.h"
+#elif defined (EDP_SGX)
+#  include "pal_edp_sgx.h"
 #endif
-#if !defined(OPEN_ENCLAVE) || defined(OPEN_ENCLAVE_SIMULATION)
+
+#if !defined(OPEN_ENCLAVE) || defined(OPEN_ENCLAVE_SIMULATION) || !defined(EDP_SGX)
 #  include "pal_apple.h"
 #  include "pal_dragonfly.h"
 #  include "pal_freebsd.h"
@@ -42,6 +45,8 @@ namespace snmalloc
     SNMALLOC_MEMORY_PROVIDER;
 #elif defined(OPEN_ENCLAVE)
     PALOpenEnclave;
+#elif defined(EDP_SGX)
+    PALEdpSgx;
 #elif defined(_WIN32)
     PALWindows;
 #elif defined(__APPLE__)

@@ -12,6 +12,8 @@ include(CheckIncludeFileCXX)
 include(CheckIPOSupported)
 include(CMakeDependentOption)
 
+set (EDP_SGX, "1")
+
 # Name chosen for compatibility with CTest.
 option(SNMALLOC_BUILD_TESTING "Build test programs as well as shims" ON)
 
@@ -38,7 +40,8 @@ if (NOT SNMALLOC_HEADER_ONLY_LIBRARY)
   if (${CMAKE_SYSTEM_NAME} STREQUAL FreeBSD)
     set(SNMALLOC_CLEANUP_DEFAULT THREAD_CLEANUP)
   elseif (UNIX AND NOT APPLE)
-    set(SNMALLOC_CLEANUP_DEFAULT PTHREAD_DESTRUCTORS)
+    #set(SNMALLOC_CLEANUP_DEFAULT PTHREAD_DESTRUCTORS)
+    set(SNMALLOC_CLEANUP_DEFAULT THREAD_CLEANUP)
   else ()
     set(SNMALLOC_CLEANUP_DEFAULT CXX11_DESTRUCTORS)
   endif()

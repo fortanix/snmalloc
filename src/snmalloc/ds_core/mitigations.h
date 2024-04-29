@@ -222,7 +222,7 @@ namespace snmalloc
   constexpr mitigation::type mitigations =
 #ifdef SNMALLOC_CHECK_CLIENT_MITIGATIONS
     no_checks + SNMALLOC_CHECK_CLIENT_MITIGATIONS;
-#elif defined(OPEN_ENCLAVE)
+#elif defined(OPEN_ENCLAVE) || defined (EDP_SGX)
     /**
      * On Open Enclave the address space is limited, so we disable
      * metadata-protection feature.
